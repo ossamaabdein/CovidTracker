@@ -1,0 +1,35 @@
+<div class="container mx-auto row">
+    <div class="card-container col-md-3">
+        <div class="card confirmed_card">
+            <div class="card-body">
+              <h6 class="fw-normal">CONFIRMED</h6>
+              <h2>{{totalConfirmed | number}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-container col-md-3">
+        <div class="card mx-2 recovered_card">
+            <div class="card-body">
+              <h6 class="fw-normal">RECOVERED</h6>
+              <h2>{{totalRecovered | number}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-container col-md-3">
+        <div class="card mx-2 deaths_card">
+            <div class="card-body">
+              <h6 class="fw-normal">DEATHS</h6>
+              <h2>{{totalDeaths | number}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-container col-md-3">
+        <div class="card active_card">
+            <div class="card-body">
+              <h6 class="fw-normal">ACTIVE</h6>
+              <h2>{{totalActive | number}}</h2>
+            </div>
+        </div>
+    </div>
+  
+</div>

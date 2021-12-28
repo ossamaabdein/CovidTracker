@@ -1,0 +1,40 @@
+<div class="countries">
+    <div class="container text-center">
+      <div class="header">
+        <h1 class="py-4">COVID-19 Countries</h1>
+        <h5 class="pb-3">Select a country</h5>
+
+        <select  #input (change)="updateValues(input.value)" class="form-select w-25 mx-auto mb-4" aria-label="Default select example">
+            <option *ngFor="let country of countriesList">{{country}}</option>
+        </select>
+
+        <app-dashboard-card [totalConfirmed]="totalConfirmed" [totalDeaths]="totalDeaths" [totalActive]="totalActive" [totalRecovered]="totalRecovered"></app-dashboard-card>
+      </div>
+
+        <div>
+            <google-chart [type]="firstType" [data]="dataTable" [height]="chart.height" [options]="chart.options" style="width: 100%;"></google-chart>
+        </div>
+        <div>
+            <table class="table table-bordered w-50 mx-auto">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Total Cases</th>
+                    <th scope="col">New Cases</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let country of selectedCountry, let i = index">
+                    <td>{{country.date |date}}</td>
+                    <td>{{country.cases |number}}</td>
+                    <td>
+                      <span class="increase_rate me-2">+{{subtract(selectedCountry[i].cases , selectedCountry[i + 1].cases)}}</span>
+                      <i class="fas fa-arrow-up text-danger"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+    </div>
+</div>
