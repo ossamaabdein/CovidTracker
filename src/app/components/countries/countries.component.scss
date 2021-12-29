@@ -15,3 +15,35 @@ table {
         padding: 4px 0;
     }
 }
+
+// responsive design for smaller screens
+@media screen and (max-width: 800px) {
+    .container {
+        margin: auto 12px !important;
+    }
+    .form-select {
+        width: 50% !important;
+    }
+
+    table {
+        width: 70% !important;
+    }
+
+    .countryChart {
+        width: 85% !important;
+    }
+}
+
+// responsive design for mobile screens
+@media screen and (max-width: 500px) {
+    .form-select {
+        width: 75% !important;
+    }
+
+    table {
+        width: 90% !important;
+        th, td {
+            font-size: smaller;
+        }
+    }
+}

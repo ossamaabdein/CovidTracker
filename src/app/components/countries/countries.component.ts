@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'angular-google-charts';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CountryData } from 'src/app/models/country-data';
 import { DataService } from 'src/app/services/data.service';
 
@@ -10,7 +11,18 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class CountriesComponent implements OnInit {
 
+  constructor(private _DataService: DataService, private _NgxSpinnerService: NgxSpinnerService) { }
+
   firstType = ChartType.LineChart;
+  countriesList: string[] = [];
+  data: any = [];
+  totalConfirmed = 0;
+  totalActive = 0;
+  totalDeaths = 0;
+  totalRecovered = 0;
+  countriesData: any;
+  selectedCountry: CountryData[] = [];
+  dataTable: any = [];
 
   chart = {
     height: 400,
@@ -23,38 +35,26 @@ export class CountriesComponent implements OnInit {
     }  
   } 
 
-
-
-  countriesList: string[] = [];
-  data: any = [];
-  totalConfirmed = 0;
-  totalActive = 0;
-  totalDeaths = 0;
-  totalRecovered = 0;
-  countriesData: any;
-  selectedCountry: CountryData[] = [];
-  dataTable: any = []
-
-  constructor(private _DataService: DataService) { }
-
   ngOnInit(): void {
+    // loading screen settings
+    this._NgxSpinnerService.show();
+    setTimeout(() => {
+      this._NgxSpinnerService.hide();
+    }, 2000);
     this._DataService.getCountriesData().subscribe((result:any) => {
       this.countriesData = result
       // initial data 
       this.selectedCountry = this.countriesData['Afghanistan'].reverse();
-      // let x = this.selectedCountry;
-      // console.log(this.dataTable);
       this.updateChart()      
     })
 
     this._DataService.getGlobalData().subscribe((result:any) => {
+      // remove first row [titles]
       result.splice(0,1);
       this.data = result
       // initial values  
       this.totalConfirmed = this.data[0].confirmed;
       this.totalDeaths = this.data[0].deaths;
-      this.totalActive = this.data[0].active;
-      this.totalRecovered = this.data[0].recovery;
       this.data.forEach((el: any) => {
         if (el.country != null) {
           if (el.country == 'Israel') {
@@ -64,16 +64,13 @@ export class CountriesComponent implements OnInit {
         }
       });
     })
-
   }
-
   
   updateChart() {
     this.dataTable = [];
     this.selectedCountry.forEach((country:any) => {
-      this.dataTable.push([country.cases, country.date])
+      this.dataTable.push([country.cases, country.date]);
     })
-    console.log(this.dataTable)
   }
 
   updateValues(input: string) {
@@ -81,8 +78,6 @@ export class CountriesComponent implements OnInit {
       if(el.country == input) {
         this.totalConfirmed = el.confirmed;
         this.totalDeaths = el.deaths;
-        this.totalActive = el.active;
-        this.totalRecovered = el.recovery;
       } 
     })
 
@@ -90,7 +85,8 @@ export class CountriesComponent implements OnInit {
     this.updateChart()    
   }
 
+// calc. increase rate in cases
   subtract(x:any, y: any) {
-    return x - y;
+    return  x - y;
   }
 }

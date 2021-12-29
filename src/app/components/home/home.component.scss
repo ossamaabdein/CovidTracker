@@ -1,21 +1,70 @@
 
-.options {
-    font-weight: 500;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+// Styling for home component
+.home {
+    .header {
+        .main_title {
+            font-family: 'Roboto Slab', serif;
+        }
+        .sub_title {
+            color: #6b6b6b;
+            .fa-home {
+                color: #038b8b;
+            }
+        }
+        background: #ebeeee;
+    }
+    .options {
+        font-weight: 500;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .geoChart {
+        background: #ebeeee;
+    }
 }
 
-.header {
-    .main_title {
-        font-family: 'Roboto Slab', serif;
+// Responsive design for smaller screens
+@media screen and (max-width: 1000px) {
+    .container {
+        overflow: hidden;
+        width: 90%;
+        margin: auto 10px !important;
     }
+}
 
-    .sub_title {
-        color: #6b6b6b;
-        .fa-home {
-            color: #038b8b;
+// Responsive design for Tablets
+@media screen and (max-width: 768px) {
+    .geoChart {
+        background: #ebeeee;
+        // overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .home {
+        .header {
+            .sub_title {
+                font-size: 15px;
+            }
         }
     }
+    .mobile_hidden {
+        display: none;
 
-    // background: #DEE1E1;
-    background: #ebeeee;
+    }
+
+    .geoChart {
+        overflow: hidden;
+        .geo {
+           overflow: hidden;
+        margin: auto;
+        width: 80% !important;
+       }
+    }
+
+    .options {
+        .title {
+            display: block;
+            padding-bottom: 15px;
+        }
+    }
 }

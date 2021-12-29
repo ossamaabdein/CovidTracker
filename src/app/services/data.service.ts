@@ -10,8 +10,8 @@ import { CountryData } from '../models/country-data';
 })
 export class DataService {
 
-  // dataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/12-27-2020.csv'
-  dataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/8ea53ad40b93d4be5cb7fe63d3d5b9f860c1ddaa/csse_covid_19_data/csse_covid_19_daily_reports/12-22-2021.csv'
+  // dataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/8ea53ad40b93d4be5cb7fe63d3d5b9f860c1ddaa/csse_covid_19_data/csse_covid_19_daily_reports/12-22-2021.csv'
+  dataUrl =    'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/12-27-2021.csv'
   countriesUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
   
   constructor(private _HttpClient: HttpClient) { }

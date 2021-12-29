@@ -11,7 +11,8 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
 import { GoogleChartsModule } from 'angular-google-charts';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { FooterComponent } from './components/footer/footer.component';
     AppRoutingModule,
     HttpClientModule,
     GoogleChartsModule,
-    RouterModule
+    RouterModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { ChartType } from "angular-google-charts";
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -10,14 +11,22 @@ import { ChartType } from "angular-google-charts";
 })
 
 export class HomeComponent implements OnInit {
-
+  
+  constructor(private _DataService: DataService, private _NgxSpinnerService: NgxSpinnerService) { }
+  
+  // declaring variables
   firstType = ChartType.PieChart;
-  secondType = ChartType.ColumnChart
+  secondType = ChartType.GeoChart;
+  thirdType = ChartType.AreaChart;
+  globalData:any = [];
+  dataTable: any = [];
+  totalConfirmed = 0;
+  totalActive = 0;
+  totalDeaths = 0;
+  totalRecovered = 0;
 
   chart = {
-    // PieChart: 'PieChart',
-    // ColumnChart : 'ColumnChart',
-    height: 400,
+    height: 500,
     options: {
       animation:{
         duration: 1000,
@@ -26,21 +35,31 @@ export class HomeComponent implements OnInit {
     }  
   } 
 
-  globalData:any = [];
-  dataTable: any = [];
-  totalConfirmed = 0;
-  totalActive = 0;
-  totalDeaths = 0;
-  totalRecovered = 0;
-
-
-  constructor(private _DataService: DataService) { }
+  geoChart = {
+    height: 500,
+    options: {
+      animation:{
+        duration: 1000,
+        easing: 'out',
+      },
+      colorAxis: {colors: ['#f8bbd0', 'red'] },
+    backgroundColor: '#ebeeee',
+    }
+  }
 
   ngOnInit(): void {
+    // loading screen settings
+    this._NgxSpinnerService.show();
+    setTimeout(() => {
+      this._NgxSpinnerService.hide();
+    }, 2000);
+   
     this._DataService.getGlobalData().subscribe(result => {
+      // splice first row [titles]
       result.splice(0,1);
       this.globalData = result
       this.globalData.forEach((el: any) => {
+        // refactor wrong data
         if (el.country == 'Israel') {
           el.country = 'Palestine';
         }
@@ -57,13 +76,10 @@ export class HomeComponent implements OnInit {
   }
 
   initChart(caseType: string) {
-
     // Important step to update charts
     this.dataTable = [];
-    // this.dataTable.push(['country', 'cases']);
     this.globalData.forEach((el: any) => {
       let value: any;
-      let con: any;
       if (caseType == 'confirmed') {
           value = el.confirmed        
       }
@@ -79,30 +95,18 @@ export class HomeComponent implements OnInit {
           value = el.active
       }
       this.dataTable.push([el.country, value])      
-      // this.dataTable.push([con, value])      
-    });
-    console.log(this.dataTable)
-
-  //   this.pieChart = {
-  //   chartType: 'PieChart',
-  //   dataTable: dataTable,
-  //   options: {height : 600},
-  // }
-
-  //   this.columnChart = {
-  //     chartType: 'ColumnChart',
-  //     dataTable: dataTable,
-  //     options: {height : 500}
-  //   }
-
-
+    }); 
   }
 
+  // update chart on action
   updateChart(input: HTMLInputElement) {
     this.initChart(input.value)
     console.log(input.value)
   }
 
-  
-
+  // hide & show some elements depending on screen size
+  isMobile() {
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    return width < 768;
+  }
 }

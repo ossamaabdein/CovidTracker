@@ -7,13 +7,20 @@
 a {
     font-weight: 500;
     color: black !important;
+    color: #fff !important;
 }
 
 .active {
-    color: rgb(177, 10, 10) !important;
+    // color: rgb(177, 10, 10) !important;
+    color: rgb(170, 170, 170) !important;
 }
 
 .navbar {
     box-shadow: 2px 4px 12px 1px rgba(129, 127, 127, 0.25);
+    background-color: #006d6d !important;
+    
+}
 
+.nav-link {
+    padding: 8px;
 }

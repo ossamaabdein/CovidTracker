@@ -1,36 +1,39 @@
-<div class="home pt-5 text-center">
-      <div class="header py-5">
-        <h1 class="main_title">COVID-19 Tracker</h1>
-        <h4 class="py-3 sub_title">Stay Safe. Stay @ <i class="fas fa-home"></i></h4>
-        <app-dashboard-card [totalConfirmed]="totalConfirmed" [totalDeaths]="totalDeaths" [totalActive]="totalActive" [totalRecovered]="totalRecovered"></app-dashboard-card>
-      </div>
+<!-- Spinner for Page Loading -->
+<ngx-spinner></ngx-spinner>
 
-        <div class="container mx-auto row">
-          <div class="options mt-5 col-12 text-start">
-              <span class="me-3">Select case type:</span>
-              <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" #confirmed id="confirmed" value="confirmed" checked (click)="updateChart(confirmed)">
-                  <label class="form-check-label" for="confirmed">Confirmed</label>
-                </div>
-                <!-- <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" #recovered id="recovered" value="recovered" (click)="updateChart(recovered)">
-                  <label class="form-check-label" for="recovered">Recovered</label>
-                </div> -->
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" #deaths id="deaths" value="deaths" (click)="updateChart(deaths)">
-                  <label class="form-check-label" for="deaths">Deaths</label>
-                </div>
-                <!-- <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" #active id="active" value="active" (click)="updateChart(active)">
-                  <label class="form-check-label" for="active">Active</label>
-                </div> -->
-                
-          </div>
-            <div class="col-md-6">
-              <google-chart [type]="secondType" [data]="dataTable" [height]="chart.height" [options]="chart.options" style="width: 100%;"></google-chart>
-            </div>
-            <div class="col-md-6">
-              <google-chart [type]="firstType" [data]="dataTable" [height]="chart.height" [options]="chart.options" style="width: 100%;"></google-chart>
-            </div>
-        </div>
+<div class="home pt-5 text-center">
+  <div class="header py-5">
+    <h1 class="main_title">COVID-19 Tracker</h1>
+    <h5 class="py-3 sub_title">Stay Safe. Stay @ <i class="fas fa-home"></i></h5>
+    <!-- dashboard Component -->
+    <app-dashboard-card [totalConfirmed]="totalConfirmed" [totalDeaths]="totalDeaths" [totalActive]="totalActive" [totalRecovered]="totalRecovered"></app-dashboard-card>
+  </div>
+
+  <!-- Show countries component only in mobile screen size -->
+  <app-countries *ngIf="isMobile()"></app-countries>
+
+  <div class="container mx-auto row">
+    <div class="options mt-5 col-12 text-start mobile_hidden">
+      <span class="title me-3">Select case type:</span>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" #confirmed id="confirmed" value="confirmed" checked (click)="updateChart(confirmed)">
+        <label class="form-check-label" for="confirmed">Confirmed</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" #deaths id="deaths" value="deaths" (click)="updateChart(deaths)">
+        <label class="form-check-label" for="deaths">Deaths</label>
+      </div>
+    </div>
+    <div class="col-md-6 mobile_hidden">
+      <google-chart [type]="firstType" [data]="dataTable" [height]="chart.height" [options]="chart.options" style="width: 100%;"></google-chart>
+    </div>
+    <div class="col-md-6 mobile_hidden">
+      <google-chart [type]="thirdType" [data]="dataTable" [height]="chart.height" [options]="chart.options" style="width: 100%;"></google-chart>
+    </div>
+  </div>
+
+  <!-- Geographical distribution for corona cases all-over the world -->
+  <div class="geoChart col-md-12 py-4">
+    <google-chart class="geo" [type]="secondType" [data]="dataTable" [height]="geoChart.height" [options]="geoChart.options" style="width: 100%;"></google-chart>
+  </div>
 </div>
